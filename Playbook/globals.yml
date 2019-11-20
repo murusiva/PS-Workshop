@@ -1,0 +1,41 @@
+cluster: cluster1
+netapp_hostname: cluster1
+netapp_username: admin
+netapp_password: Netapp1!
+
+license_codes: AAAAAAAAAAA,AAAAAAAAAAA,AAAAAAAAAAA,AAAAAAAAAAA,AAAAAAAAAAA,AAAAAAAAAAA,AAAAAAAAAAA,AAAAAAAAAAA,AAAAAAAAAAA,AAAAAAAAAAA,AAAAAAAAAAA,AAAAAAAAAAA,AAAAAAAAAAAAAA
+
+dns:
+  - { dns_domains: demo.netapp.com, dns_nameservers: 192.168.0.253 }
+
+ntp:
+  - { server_name: time.nist.gov, version: auto }
+
+snmp:
+  - { community_name: public, access_control: ro }
+
+aggrs:
+  - { name: aggr1, node: cluster1-01, disk_count: 12, max_raid: 26 }
+  - { name: aggr2, node: cluster1-02, disk_count: 12, max_raid: 26 }
+
+ports:   #* Ports also has variables 'autonegotiate', and 'flowcontrol' which default to true, and none but can be overriden by your playbook
+  - { node: cluster1-01, port: e0e, mtu: 9000 }
+  - { node: cluster1-01, port: e0f, mtu: 9000 }
+  - { node: cluster1-01, port: e0g, mtu: 9000 }
+  - { node: cluster1-02, port: e0e, mtu: 9000 }
+  - { node: cluster1-02, port: e0f, mtu: 9000 }
+  - { node: cluster1-02, port: e0g, mtu: 9000 }
+
+ifgrps:
+  - { name: a0a, node: cluster1-01, ports: "e0f,e0g", mode: multimode, mtu: 9000 }
+  - { name: a0a, node: cluster1-02, ports: "e0f,e0g", mode: multimode, mtu: 9000 }
+
+vlans:
+  - { id: 201, node: cluster1-01, port: a0a }
+
+bcasts:
+  - { name: Backup, mtu: 9000, ipspace: default, ports: 'cluster1-01:e0e,cluster1-02:e0e' }
+
+inters:
+  - { name: intercluster_1, address: 172.32.0.187, netmask: 255.255.255.0, node: cluster1-01, port: e0e }
+  - { name: intercluster_2, address: 172.32.0.188, netmask: 255.255.255.0, node: cluster1-02, port: e0e }

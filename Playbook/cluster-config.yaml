@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  vars_files:
+    - globals.yml
+  vars:
+    input: &input
+      hostname: "{{ netapp_hostname }}"
+      username: "{{ netapp_username }}"
+      password: "{{ netapp_password }}"
+  tasks:
+  - name: Get Ontapi version
+    na_ontap_gather_facts:
+      state: info
+      <<: *input
+      https: true
+      ontapi: 32
+      validate_certs: false
+  - import_role:
+      name: na_ontap_cluster_config
+      <<: *input
