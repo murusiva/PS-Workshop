@@ -17,4 +17,5 @@
       validate_certs: false
   - import_role:
       name: na_ontap_cluster_config
+    vars:
       <<: *input
