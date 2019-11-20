@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  name: Setup ONTAP
+  vars_files:
+   vars.yaml
+  vars:
+    volname: "{{ volname }}"
+    vserver: "{{ vserver }}"
+    aggrname: " {{ aggrname }}"
+    policy: ansiblePolicy
+    state: "{{ state }}"
+  tasks:
+  - name: Create snapmirror
+    na_ontap_snapmirror:
+      state: present
+      source_volume: "{{ volname }}"
+      destination_volume: "{{ dest_vol }}"
+      source_vserver: "{{ vserver }}"
+      schedule: 8hour
+      destination_vserver: "{{ vserver_dest }}"
+      hostname: "{{ netapp_hostname_dest }}"
+      username: "{{ netapp_username }}"
+      password: "{{ netapp_password }}"

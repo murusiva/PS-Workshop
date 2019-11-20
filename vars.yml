@@ -1,0 +1,32 @@
+############################################
+#  ANSIBLE Variable for cDOT 		   #
+#   					   #	
+#  Set the cDOT environment details   	   #
+#  Author: Siva Murugesan 		   #
+############################################
+netapp_hostname: cluster1
+netapp_hostname_dest: cluster2
+netapp_username: admin
+netapp_password: Netapp1!
+node_name_01 : cluster1-01
+node_name_02 : cluster1-02
+vserver: ansible_svm_01
+vserver_dest: ansible_svm_02
+address_nfs: 192.168.0.51
+address_iscsi: 192.168.0.52
+address_cifs: 192.168.0.53
+aggrname: aggr1_data_01
+state: present
+volname: test_vol_01
+dest_vol: test_vol_01_dst
+igroup_name: iscsi-test_01
+group_name: Administrators
+permission: full_control
+new_size: 40
+cifs_user: Administrator
+cifs_pass: Netapp1!
+cifs_server_name: ansible_svm_01
+cifs_domain: demo.netapp.com
+domain: demo.netapp.com
+dns: 192.168.0.253
+ntp_server: dc1.demo.netapp.com

@@ -1,0 +1,24 @@
+--- 
+- hosts: localhost 
+  name: Setup ONTAP 
+  gather_facts: false
+  vars_files:
+   vars.yml
+  vars:
+    volname: "{{ volname }}"
+    vserver: "{{ vserver }}" 
+    aggrname: " {{ aggrname }}" 
+    policy: "{{ volname }}_policy"
+    state: "{{ state }}" 
+  tasks: 
+  - name: Change volume size
+    na_ontap_volume: 
+      state: "{{ state }}" 
+      name: "{{ volname }}" 
+      aggregate_name: "{{ aggrname }}" 
+      size: "{{ new_size }}" 
+      size_unit: gb 
+      vserver: "{{ vserver }}" 
+      hostname: "{{ netapp_hostname }}" 
+      username: "{{ netapp_username }}" 
+      password: "{{ netapp_password }}" 
